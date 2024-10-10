@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -31,6 +32,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -63,6 +66,15 @@ fun App() {
 		mutableStateOf("")
 	}
 	
+	var mostrarResultado by remember {
+		mutableStateOf(false)
+	}
+	
+	var ehGasolina by remember {
+		mutableStateOf(false)
+	}
+	
+	
 	
 	Column(
 		Modifier
@@ -85,10 +97,9 @@ fun App() {
 			)
 			
 			
-			
-			AnimatedVisibility(visible = valorAlcool.isNotBlank() && valorGasolina.isNotBlank()) {
-				if (valorAlcool.isNotBlank() && valorGasolina.isNotBlank()) {
-					val ehGasolina = valorAlcool.toDouble() / valorGasolina.toDouble() > 0.7
+			AnimatedVisibility(visible = mostrarResultado) {
+				if (mostrarResultado) {
+					
 					val alcoolOuGasolina = if (ehGasolina) {
 						"Gasolina"
 					} else {
@@ -113,12 +124,12 @@ fun App() {
 			
 			TextField(
 				value = valorAlcool,
-				onValueChange = {
-					valorAlcool = it
+				onValueChange = { newValue ->
+					val formattedValue = newValue.takeWhile { it != '.' }
+						.plus(newValue.substringAfter('.', "").take(2))
+					valorAlcool = formattedValue
 				},
-				label = {
-					Text(text = "Álcool")
-				}
+				label = { Text(text = "Digite aqui o valor do Álcool") },
 			)
 			
 			
@@ -128,15 +139,26 @@ fun App() {
 					valorGasolina = it
 				},
 				label = {
-					Text(text = "Gasolina")
+					Text(text = "Digite aqui o valor da Gasolina")
 				}
 			)
 			
+			Button(onClick = {
+				if (valorAlcool.isNotBlank() && valorGasolina.isNotBlank()) {
+					ehGasolina = valorAlcool.toDouble() / valorGasolina.toDouble() > 0.7
+					mostrarResultado = true
+				}
+			}) {
+				Text("Calcular")
+			}
 		}
+		
+		
+		
+		
 	}
-	
-	
 }
+
 
 
 @Preview
