@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -63,13 +64,12 @@ fun App() {
 	
 	var mostrarErroGasolina by remember { mutableStateOf(false) }
 	
-	val focusRequester = remember { FocusRequester() }
-	
 	var mostrarResultado by remember { mutableStateOf(false) }
 	
 	var ehGasolina by remember { mutableStateOf(false) }
 	
 	val focusManager = LocalFocusManager.current
+	
 	
 	
 	fun formatarValor(valor: String): String {
@@ -81,6 +81,8 @@ fun App() {
 			else -> ""
 		}
 	}
+	
+	
 	
 	
 	Column(
@@ -114,52 +116,6 @@ fun App() {
 					)
 				)
 			}
-
-
-//			AnimatedVisibility(visible = mostrarResultado) {
-//				if (mostrarResultado) {
-//
-//					val alcoolOuGasolina = if (ehGasolina) {
-//						"Gasolina"
-//					} else {
-//						"Álcool"
-//					}
-//					val cor = if (ehGasolina) {
-//						Color.Red
-//					} else {
-//						Color.Green
-//					}
-//					Text(
-//						text = alcoolOuGasolina,
-//						style = TextStyle(
-//							color = cor,
-//							fontSize = 40.sp,
-//							fontWeight = FontWeight.Bold
-//						)
-//					)
-//				}
-//			}
-
-
-//			TextField(
-//				value = valorAlcool,
-//				onValueChange = { newValue ->
-//					valorAlcool = newValue // Remove a formatação aqui
-//				},
-//				label = { Text(text = "Digite aqui o valor do Álcool") },
-//				keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), // Altere o tipo de teclado
-//				visualTransformation = CasasAposVirgula(2)
-//			)
-
-//			TextField(
-//				value = valorGasolina,
-//				onValueChange = { newValue ->
-//					valorGasolina = newValue // Remove a formatação aqui
-//				},
-//				label = { Text(text = "Digite aqui o valor da Gasolina") },
-//				keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), // Altere o tipo de teclado
-//				visualTransformation = CasasAposVirgula(2)
-//			)
 			
 			
 			TextField(
@@ -167,10 +123,10 @@ fun App() {
 				onValueChange = { novoValor ->
 					valorAlcool = formatarValor(novoValor)
 					mostrarErroAlcool = valorAlcool.length < 4 // Exibe erro se menos de 3 números
-//					focusRequester.requestFocus()
 				},
 				label = { Text("Digite o valor do Álcool") },
-				keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+				keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
+				keyboardActions = KeyboardActions(onDone = {focusManager.clearFocus()}),
 				isError = mostrarErroAlcool,
 				supportingText = {
 					if (mostrarErroAlcool) {
@@ -180,7 +136,6 @@ fun App() {
 						)
 					}
 				},
-//				modifier = Modifier.focusRequester(focusRequester),
 			)
 			
 			
@@ -192,7 +147,8 @@ fun App() {
 						valorGasolina.length < 4 // Exibe erro se menos de 3 números
 				},
 				label = { Text("Digite o valor da Gasolina") },
-				keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+				keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
+				keyboardActions = KeyboardActions(onDone = {focusManager.clearFocus()}),
 				isError = mostrarErroGasolina,
 				supportingText = {
 					if (mostrarErroGasolina) {
@@ -205,19 +161,8 @@ fun App() {
 			)
 			
 			
+			
 
-//			Button(onClick = {
-//				try {
-//					if (valorAlcool.isNotBlank() && valorGasolina.isNotBlank()) {
-//						ehGasolina = valorAlcool.toDouble() / valorGasolina.toDouble() > 0.7
-//						mostrarResultado = true
-//					}
-//				} catch (e: NumberFormatException) {
-//					// Exiba uma mensagem de erro para o usuário
-//				}
-//			}) {
-//				Text("Calcular")
-//			}
 			
 			Button(onClick = {
 				try {
