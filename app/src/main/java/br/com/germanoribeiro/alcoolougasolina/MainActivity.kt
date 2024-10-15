@@ -60,7 +60,6 @@ class MainActivity : ComponentActivity() {
 	}
 }
 
-
 @Composable
 fun App() {
 	
@@ -240,6 +239,21 @@ fun App() {
 				Text("Calcular")
 			}
 			SnackbarHost (hostState = snackbarHostState)
+			
+			Button(onClick = {
+				// Reseta as variáveis de estado
+				valorAlcool = TextFieldValue("", TextRange(1))
+				valorGasolina = TextFieldValue("", TextRange(1))
+				mostrarErroAlcool = false
+				mostrarErroGasolina = false
+				mostrarResultado = false
+				ehGasolina = false
+				// Limpa o foco dos campos de texto
+				focusManager.clearFocus()
+			}) {
+				Text("Novo Cálculo")
+			}
+			
 		}
 	}
 }
