@@ -65,8 +65,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App() {
 	
-	var valorAlcool by remember { mutableStateOf(TextFieldValue("", TextRange(1))) }
-	var valorGasolina by remember { mutableStateOf(TextFieldValue("", TextRange(1))) }
+	var valorAlcool by remember { mutableStateOf(TextFieldValue("", TextRange(0))) }
+	var valorGasolina by remember { mutableStateOf(TextFieldValue("", TextRange(0))) }
 	var mostrarErroAlcool by remember { mutableStateOf(false) }
 	var mostrarErroGasolina by remember { mutableStateOf(false) }
 	var mostrarResultado by remember { mutableStateOf(false) }
@@ -272,7 +272,7 @@ fun App() {
 					}) {
 						Text("Calcular")
 					}
-					SnackbarHost (hostState = snackbarHostState)
+					
 					
 					Button(onClick = {
 						// Reseta as variáveis de estado
@@ -287,7 +287,7 @@ fun App() {
 					}) {
 						Text("Novo Cálculo")
 					}
-					
+					SnackbarHost (hostState = snackbarHostState)
 					
 					
 				}
