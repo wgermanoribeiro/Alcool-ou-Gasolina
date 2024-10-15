@@ -90,7 +90,7 @@ fun App() {
 	ModalNavigationDrawer(
 		drawerState = drawerState,
 		drawerContent = {
-			AppDrawer { menuItem ->
+			MenuLateral { menuItem ->
 				// Lógica para lidar com o clique no item do menu
 				when (menuItem.title) {
 					"Home" -> { /* Ação para a tela inicial */ }

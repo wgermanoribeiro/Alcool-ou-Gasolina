@@ -33,7 +33,7 @@ data class MenuItem(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppDrawer(
+fun MenuLateral(
 	onItemClick: (MenuItem) -> Unit
 ) {
 	// Itens do menu
