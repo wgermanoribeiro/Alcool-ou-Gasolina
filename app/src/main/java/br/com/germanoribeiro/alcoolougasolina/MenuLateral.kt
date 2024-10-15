@@ -31,7 +31,6 @@ data class MenuItem(
 	val onClick: () -> Unit
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MenuLateral(
 	onItemClick: (MenuItem) -> Unit

@@ -76,7 +76,6 @@ fun App() {
 	val scope = rememberCoroutineScope()
 	val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 	
-	
 	fun formatarValor(valor: String): String {
 		val numeros = valor.filter { it.isDigit() }.take(3) // Filtra apenas números e limita a 3
 		return when {
@@ -103,12 +102,6 @@ fun App() {
 		},
 		
 		content = {
-			
-			Button(onClick = {
-				scope.launch { drawerState.open() }
-			}) {
-				Text("Abrir Menu")
-			}
 			
 			Column(
 				Modifier
@@ -273,7 +266,6 @@ fun App() {
 						Text("Calcular")
 					}
 					
-					
 					Button(onClick = {
 						// Reseta as variáveis de estado
 						valorAlcool = TextFieldValue("", TextRange(1))
@@ -288,9 +280,13 @@ fun App() {
 						Text("Novo Cálculo")
 					}
 					SnackbarHost (hostState = snackbarHostState)
-					
-					
 				}
+			}
+			
+			Button(onClick = {
+				scope.launch { drawerState.open() }
+			}) {
+				Text("Abrir Menu")
 			}
 		}
 	
