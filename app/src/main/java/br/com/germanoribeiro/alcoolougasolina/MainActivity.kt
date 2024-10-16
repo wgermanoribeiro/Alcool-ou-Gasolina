@@ -5,9 +5,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -31,8 +37,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -75,6 +84,7 @@ fun App() {
 	val snackbarHostState = remember { SnackbarHostState() }
 	val scope = rememberCoroutineScope()
 	val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+	val keyboardController = LocalSoftwareKeyboardController.current
 	
 	fun formatarValor(valor: String): String {
 		val numeros = valor.filter { it.isDigit() }.take(3) // Filtra apenas números e limita a 3
@@ -106,7 +116,11 @@ fun App() {
 			Column(
 				Modifier
 					.background(color = Color(222, 222, 222, 255))
-					.fillMaxSize(),
+					.fillMaxSize()
+					.clickable {
+						keyboardController?.hide() // Esconda o teclado
+						focusManager.clearFocus() // Remova o foco
+					},
 				verticalArrangement = Arrangement.Center,
 				horizontalAlignment = Alignment.CenterHorizontally
 			) {
@@ -196,7 +210,6 @@ fun App() {
 									valorGasolina = novoValor
 								}
 							}
-							
 							mostrarErroGasolina =
 								valorGasolina.text.length < 4 // Exibe erro se menos de 4 caracteres (3 números e a virgula. ex.: 5,69)
 						},
@@ -240,11 +253,6 @@ fun App() {
 //				Text("Testar Erro")
 //			}
 					
-					Button(onClick = {
-						scope.launch { drawerState.open() }
-					}) {
-						Text("Abrir Menu")
-					}
 					
 					Button(onClick = {
 						try {
@@ -283,10 +291,26 @@ fun App() {
 				}
 			}
 			
-			Button(onClick = {
-				scope.launch { drawerState.open() }
-			}) {
-				Text("Abrir Menu")
+//			Button(onClick = {
+//				scope.launch { drawerState.open() }
+//			}) {
+//				Text("Abrir Menu")
+//			}
+			
+			Box(modifier = Modifier.fillMaxSize()) {
+				Button(
+					onClick = { scope.launch { drawerState.open() } },
+					modifier = Modifier
+						.wrapContentSize() // Permite que o botão ocupe apenas o espaço necessário
+						.align(Alignment.TopStart) // Alinha o botão no topo à esquerda
+						.padding(16.dp) // Adiciona espaçamentoao redor do botão
+						.background(Color.Blue, shape = CircleShape) // Fundo azul e forma circular
+						.border(1.dp, Color.White, shape = CircleShape) // Borda branca e forma circular
+						.clip(CircleShape) // Recorta o conteúdo do botão em um círculo
+						.shadow(4.dp, shape = CircleShape) // Adiciona uma sombra circular
+				) {
+					Text("Abrir Menu")
+				}
 			}
 		}
 	
