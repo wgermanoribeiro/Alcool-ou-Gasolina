@@ -328,17 +328,17 @@ fun App() {
 					modifier = Modifier
 						.wrapContentSize() // Permite que o botão ocupe apenas o espaço necessário
 						.align(Alignment.TopStart) // Alinha o botão no topo à esquerda
-						.padding(16.dp) // Adiciona espaçamentoao redor do botão
+						.padding(20.dp) // Adiciona espaçamento ao redor do botão
 						.background(Color.Blue, shape = CircleShape) // Fundo azul e forma circular
 						.border(
 							1.dp,
-							Color.White,
+							Color.DarkGray,
 							shape = CircleShape
 						) // Borda branca e forma circular
 						.clip(CircleShape) // Recorta o conteúdo do botão em um círculo
 						.shadow(4.dp, shape = CircleShape) // Adiciona uma sombra circular
 				) {
-					Text("Abrir Menu")
+					Text("Menu")
 				}
 			}
 		}
