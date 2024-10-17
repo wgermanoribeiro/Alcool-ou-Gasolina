@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,7 +39,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
@@ -96,6 +98,11 @@ fun App() {
 		}
 	}
 	
+	fun fecharTeclado() {
+		keyboardController?.hide()
+		focusManager.clearFocus()
+	}
+	
 	ModalNavigationDrawer(
 		drawerState = drawerState,
 		drawerContent = {
@@ -112,14 +119,15 @@ fun App() {
 		},
 		
 		content = {
-			
+		
 			Column(
 				Modifier
 					.background(color = Color(222, 222, 222, 255))
 					.fillMaxSize()
-					.clickable {
-						keyboardController?.hide() // Esconda o teclado
-						focusManager.clearFocus() // Remova o foco
+					.pointerInput(Unit) { // Substitua clickable por pointerInput
+						detectTapGestures(onTap = {
+							fecharTeclado()
+						})
 					},
 				verticalArrangement = Arrangement.Center,
 				horizontalAlignment = Alignment.CenterHorizontally
@@ -185,6 +193,11 @@ fun App() {
 								)
 							}
 						},
+						modifier = Modifier.onFocusChanged { focusState ->
+							if (!focusState.isFocused) {
+								keyboardController?.hide()
+							}
+						}
 					)
 					
 					LaunchedEffect(valorAlcool) {
@@ -227,13 +240,17 @@ fun App() {
 									color = Color.Red
 								)
 							}
+						},
+						modifier = Modifier.onFocusChanged { focusState ->
+							if (!focusState.isFocused) {
+								keyboardController?.hide()
+							}
 						}
 					)
 					
 					LaunchedEffect(valorGasolina) { // Executa após a atualização do valor
 						if (valorGasolina.text.isNotEmpty()) {
-							valorGasolina =
-								valorGasolina.copy(selection = TextRange(valorGasolina.text.length))
+							valorGasolina =	valorGasolina.copy(selection = TextRange(valorGasolina.text.length))
 						}
 					}
 
@@ -255,6 +272,7 @@ fun App() {
 					
 					
 					Button(onClick = {
+						fecharTeclado()
 						try {
 							if (valorAlcool.text.isNotBlank() && valorGasolina.text.isNotBlank()) {
 								val valorAlcoolFormatado = valorAlcool.text.replace(",", ".").toDouble()
@@ -270,11 +288,20 @@ fun App() {
 								)
 							}
 						}
-					}) {
+					},
+						modifier = Modifier
+							.pointerInput(Unit) { // Substitua clickable por pointerInput
+								detectTapGestures(onTap = {
+									keyboardController?.hide() // Esconda o teclado
+									focusManager.clearFocus() // Remova o foco
+								})
+							},
+					) {
 						Text("Calcular")
 					}
 					
 					Button(onClick = {
+						fecharTeclado()
 						// Reseta as variáveis de estado
 						valorAlcool = TextFieldValue("", TextRange(1))
 						valorGasolina = TextFieldValue("", TextRange(1))
@@ -299,13 +326,20 @@ fun App() {
 			
 			Box(modifier = Modifier.fillMaxSize()) {
 				Button(
-					onClick = { scope.launch { drawerState.open() } },
+					onClick = {
+						fecharTeclado()
+						scope.launch { drawerState.open() }
+							  },
 					modifier = Modifier
 						.wrapContentSize() // Permite que o botão ocupe apenas o espaço necessário
 						.align(Alignment.TopStart) // Alinha o botão no topo à esquerda
 						.padding(16.dp) // Adiciona espaçamentoao redor do botão
 						.background(Color.Blue, shape = CircleShape) // Fundo azul e forma circular
-						.border(1.dp, Color.White, shape = CircleShape) // Borda branca e forma circular
+						.border(
+							1.dp,
+							Color.White,
+							shape = CircleShape
+						) // Borda branca e forma circular
 						.clip(CircleShape) // Recorta o conteúdo do botão em um círculo
 						.shadow(4.dp, shape = CircleShape) // Adiciona uma sombra circular
 				) {
@@ -313,7 +347,6 @@ fun App() {
 				}
 			}
 		}
-	
 	)
 }
 
