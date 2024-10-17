@@ -98,11 +98,6 @@ fun App() {
 		}
 	}
 	
-	fun fecharTeclado() {
-		keyboardController?.hide()
-		focusManager.clearFocus()
-	}
-	
 	ModalNavigationDrawer(
 		drawerState = drawerState,
 		drawerContent = {
@@ -126,7 +121,7 @@ fun App() {
 					.fillMaxSize()
 					.pointerInput(Unit) { // Substitua clickable por pointerInput
 						detectTapGestures(onTap = {
-							fecharTeclado()
+							KeyboardUtils.FecharTeclado(keyboardController, focusManager)
 						})
 					},
 				verticalArrangement = Arrangement.Center,
@@ -272,7 +267,7 @@ fun App() {
 					
 					
 					Button(onClick = {
-						fecharTeclado()
+						KeyboardUtils.FecharTeclado(keyboardController, focusManager)
 						try {
 							if (valorAlcool.text.isNotBlank() && valorGasolina.text.isNotBlank()) {
 								val valorAlcoolFormatado = valorAlcool.text.replace(",", ".").toDouble()
@@ -301,7 +296,7 @@ fun App() {
 					}
 					
 					Button(onClick = {
-						fecharTeclado()
+						KeyboardUtils.FecharTeclado(keyboardController, focusManager)
 						// Reseta as variáveis de estado
 						valorAlcool = TextFieldValue("", TextRange(1))
 						valorGasolina = TextFieldValue("", TextRange(1))
@@ -327,7 +322,7 @@ fun App() {
 			Box(modifier = Modifier.fillMaxSize()) {
 				Button(
 					onClick = {
-						fecharTeclado()
+						KeyboardUtils.FecharTeclado(keyboardController, focusManager)
 						scope.launch { drawerState.open() }
 							  },
 					modifier = Modifier
