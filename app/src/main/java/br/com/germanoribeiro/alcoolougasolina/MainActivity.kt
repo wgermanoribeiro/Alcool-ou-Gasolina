@@ -87,6 +87,7 @@ fun App() {
 	val scope = rememberCoroutineScope()
 	val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 	val keyboardController = LocalSoftwareKeyboardController.current
+	var textoResultado by remember { mutableStateOf("") } // Variável para o texto do resultado
 	
 	fun formatarValor(valor: String): String {
 		val numeros = valor.filter { it.isDigit() }.take(3) // Filtra apenas números e limita a 3
@@ -274,6 +275,8 @@ fun App() {
 								val valorGasolinaFormatado = valorGasolina.text.replace(",", ".").toDouble()
 								ehGasolina = valorAlcoolFormatado / valorGasolinaFormatado > 0.7
 								mostrarResultado = true
+								val porcentagem = (valorAlcoolFormatado / valorGasolinaFormatado * 100).toInt()
+								textoResultado = "O valor do Álcool está $porcentagem% do valor da Gasolina"
 							}
 						} catch (e: NumberFormatException) {
 							scope.launch {
@@ -283,14 +286,8 @@ fun App() {
 								)
 							}
 						}
-					},
-						modifier = Modifier
-							.pointerInput(Unit) { // Substitua clickable por pointerInput
-								detectTapGestures(onTap = {
-									keyboardController?.hide() // Esconda o teclado
-									focusManager.clearFocus() // Remova o foco
-								})
-							},
+					}
+					
 					) {
 						Text("Calcular")
 					}
@@ -304,20 +301,16 @@ fun App() {
 						mostrarErroGasolina = false
 						mostrarResultado = false
 						ehGasolina = false
+						textoResultado = ""
 						// Limpa o foco dos campos de texto
 						focusManager.clearFocus()
 					}) {
 						Text("Novo Cálculo")
 					}
+					Text(text = textoResultado) // Exibir o texto do resultado
 					SnackbarHost (hostState = snackbarHostState)
 				}
 			}
-			
-//			Button(onClick = {
-//				scope.launch { drawerState.open() }
-//			}) {
-//				Text("Abrir Menu")
-//			}
 			
 			Box(modifier = Modifier.fillMaxSize()) {
 				Button(
