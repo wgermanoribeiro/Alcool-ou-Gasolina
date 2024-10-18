@@ -112,6 +112,7 @@ fun App() {
 					"Entenda sobre o cálculo" -> { /* Ação para a tela*/ }
 					"Avalie-nos" -> { /* Ação para a tela*/ }
 					"Política de privacidade" -> { /* Ação para a tela*/ }
+					"Compartilhe esse aplicativo" -> { /* Ação para a tela*/ }
 				}
 				// Fecha o menu após o clique
 				scope.launch { drawerState.close() }

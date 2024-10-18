@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
@@ -46,13 +48,13 @@ fun MenuLateral(
 		),
 		MenuItem(
 			title = "Entenda sobre o cálculo",
-			icon = Icons.Default.Settings,
+			icon = Icons.Default.Check,
 			contentDescription = "Tela de configurações",
 			onClick = { /* Ação para a tela de configurações */ }
 		),
 		MenuItem(
 			title = "Avalie-nos",
-			icon = Icons.Default.Info,
+			icon = Icons.Default.Star,
 			contentDescription = "Avalie esse aplicativo na Playstore",
 			onClick = { /* Ação para a tela sobre */ }
 		),
@@ -60,6 +62,12 @@ fun MenuLateral(
 			title = "Política de privacidade",
 			icon = Icons.Default.Info,
 			contentDescription = "Política de privacidade",
+			onClick = { /* Ação para a tela sobre */ }
+		),
+		MenuItem(
+			title = "Compartilhe esse aplicativo",
+			icon = Icons.Default.Share,
+			contentDescription = "Compartilhe esse aplicativo",
 			onClick = { /* Ação para a tela sobre */ }
 		)
 	)
