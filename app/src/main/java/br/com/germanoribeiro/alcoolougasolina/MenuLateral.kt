@@ -1,5 +1,6 @@
 package br.com.germanoribeiro.alcoolougasolina
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
 // Dados para os itens do menu
@@ -65,6 +67,15 @@ fun MenuLateral(
 				.padding(16.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
+			// Imagem na parte superior
+			Image(
+				painter = painterResource(id = R.drawable.ic_launcher_foreground), // Substitua pelo ID da sua imagem
+				contentDescription = "Imagemdo menu",
+				modifier = Modifier
+					.fillMaxWidth()
+					.height(100.dp) // Ajuste a altura conforme necessário
+			)
+			
 			// Cabeçalho do menu (opcional)
 			Text(
 				text = "Menu Lateral",
