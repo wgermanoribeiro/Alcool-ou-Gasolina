@@ -84,7 +84,7 @@ fun MenuLateral(
 			
 			// Cabeçalho do menu (opcional)
 			Text(
-				text = "Álcool ou Gasolina",
+				text = "Álcool ou Gasolina?",
 				style = MaterialTheme.typography.headlineMedium
 			)
 			Spacer(modifier = Modifier.height(16.dp))
