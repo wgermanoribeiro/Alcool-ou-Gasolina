@@ -75,7 +75,7 @@ fun MenuLateral(
 		) {
 			// Imagem na parte superior
 			Image(
-				painter = painterResource(id = R.drawable.ic_launcher_foreground), // Substitua pelo ID da sua imagem
+				painter = painterResource(id = R.drawable.combustivel2), // Substitua pelo ID da sua imagem
 				contentDescription = "Imagem do menu",
 				modifier = Modifier
 					.fillMaxWidth()
@@ -84,7 +84,7 @@ fun MenuLateral(
 			
 			// Cabeçalho do menu (opcional)
 			Text(
-				text = "Menu Lateral",
+				text = "Álcool ou Gasolina",
 				style = MaterialTheme.typography.headlineMedium
 			)
 			Spacer(modifier = Modifier.height(16.dp))
