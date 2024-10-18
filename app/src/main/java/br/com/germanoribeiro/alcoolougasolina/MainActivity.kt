@@ -1,5 +1,6 @@
 package br.com.germanoribeiro.alcoolougasolina
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -73,6 +74,7 @@ class MainActivity : ComponentActivity() {
 	}
 }
 
+@SuppressLint("DefaultLocale")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App() {
@@ -275,8 +277,8 @@ fun App() {
 								val valorGasolinaFormatado = valorGasolina.text.replace(",", ".").toDouble()
 								ehGasolina = valorAlcoolFormatado / valorGasolinaFormatado > 0.7
 								mostrarResultado = true
-								val porcentagem = (valorAlcoolFormatado / valorGasolinaFormatado * 100).toInt()
-								textoResultado = "O valor do Álcool está $porcentagem% do valor da Gasolina"
+								val porcentagem = (valorAlcoolFormatado / valorGasolinaFormatado * 100)
+								textoResultado = "O valor do Álcool está ${String.format("%.2f", porcentagem)}% do valor da Gasolina" // Formata o valor da val porcentagem para mostrar 2 digitos após a virgula
 							}
 						} catch (e: NumberFormatException) {
 							scope.launch {
