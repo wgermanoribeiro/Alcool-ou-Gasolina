@@ -53,6 +53,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.germanoribeiro.alcoolougasolina.TextUtils.construirTextoResultado
 import br.com.germanoribeiro.alcoolougasolina.ui.theme.AlcoolOuGasolinaTheme
 import kotlinx.coroutines.launch
 
@@ -143,12 +144,11 @@ fun App() {
 					)
 					
 					AnimatedVisibility(visible = mostrarResultado) {
-						val resultado = if (ehGasolina) "Gasolina" else "Álcool"
 						Text(
-							text = resultado,
+							text = construirTextoResultado(ehGasolina), // Chamar a função para construir o texto
 							style = TextStyle(
-								color = if (ehGasolina) Color.Red else Color.Green,
-								fontSize = 40.sp,
+								color = Color.DarkGray, // Cor padrão do texto
+								fontSize = 30.sp,
 								fontWeight = FontWeight.Bold
 							)
 						)
