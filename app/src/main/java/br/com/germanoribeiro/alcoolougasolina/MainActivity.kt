@@ -109,8 +109,9 @@ fun App() {
 				// Lógica para lidar com o clique no item do menu
 				when (menuItem.title) {
 					"Home" -> { /* Ação para a tela inicial */ }
-					"Configurações" -> { /* Ação para a tela de configurações */ }
-					"Sobre" -> { /* Ação para a tela sobre */ }
+					"Entenda sobre o cálculo" -> { /* Ação para a tela*/ }
+					"Avalie-nos" -> { /* Ação para a tela*/ }
+					"Política de privacidade" -> { /* Ação para a tela*/ }
 				}
 				// Fecha o menu após o clique
 				scope.launch { drawerState.close() }

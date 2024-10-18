@@ -45,15 +45,21 @@ fun MenuLateral(
 			onClick = { /* Ação para a tela inicial */ }
 		),
 		MenuItem(
-			title = "Configurações",
+			title = "Entenda sobre o cálculo",
 			icon = Icons.Default.Settings,
 			contentDescription = "Tela de configurações",
 			onClick = { /* Ação para a tela de configurações */ }
 		),
 		MenuItem(
-			title = "Sobre",
+			title = "Avalie-nos",
 			icon = Icons.Default.Info,
-			contentDescription = "Tela sobre o aplicativo",
+			contentDescription = "Avalie esse aplicativo na Playstore",
+			onClick = { /* Ação para a tela sobre */ }
+		),
+		MenuItem(
+			title = "Política de privacidade",
+			icon = Icons.Default.Info,
+			contentDescription = "Política de privacidade",
 			onClick = { /* Ação para a tela sobre */ }
 		)
 	)
@@ -70,7 +76,7 @@ fun MenuLateral(
 			// Imagem na parte superior
 			Image(
 				painter = painterResource(id = R.drawable.ic_launcher_foreground), // Substitua pelo ID da sua imagem
-				contentDescription = "Imagemdo menu",
+				contentDescription = "Imagem do menu",
 				modifier = Modifier
 					.fillMaxWidth()
 					.height(100.dp) // Ajuste a altura conforme necessário
