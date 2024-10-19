@@ -54,6 +54,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import br.com.germanoribeiro.alcoolougasolina.TextUtils.construirTextoResultado
 import br.com.germanoribeiro.alcoolougasolina.ui.theme.AlcoolOuGasolinaTheme
 import kotlinx.coroutines.launch
@@ -91,6 +95,7 @@ fun App() {
 	val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 	val keyboardController = LocalSoftwareKeyboardController.current
 	var textoResultado by remember { mutableStateOf("") } // Variável para o texto do resultado
+	val navController = rememberNavController()
 	
 	fun formatarValor(valor: String): String {
 		val numeros = valor.filter { it.isDigit() }.take(3) // Filtra apenas números e limita a 3
@@ -102,157 +107,159 @@ fun App() {
 		}
 	}
 	
-	ModalNavigationDrawer(
-		drawerState = drawerState,
-		drawerContent = {
-			MenuLateral { menuItem ->
-				// Lógica para lidar com o clique no item do menu
-				when (menuItem.title) {
-					"Home" -> { /* Ação para a tela inicial */ }
-					"Entenda sobre o cálculo" -> { /* Ação para a tela*/ }
-					"Avalie-nos" -> { /* Ação para a tela*/ }
-					"Política de privacidade" -> { /* Ação para a tela*/ }
-					"Compartilhe esse aplicativo" -> { /* Ação para a tela*/ }
+	@Composable
+	fun HomeScreen(navController: NavController) {
+		ModalNavigationDrawer(
+			drawerState = drawerState,
+			drawerContent = {
+				MenuLateral { menuItem ->
+					// Lógica para lidar com o clique no item do menu
+					when (menuItem.title) {
+						"Home" -> { /* Ação para a tela inicial */ }
+						"Entenda sobre o cálculo" -> {navController.navigate("entenda_sobre_o_calculo")}
+						"Avalie-nos" -> { /* Ação para a tela*/ }
+						"Política de privacidade" -> {navController.navigate("politica_de_privacidade")}
+						"Compartilhe esse aplicativo" -> { /* Ação para a tela*/ }
+					}
+					// Fecha o menu após o clique
+					scope.launch { drawerState.close() }
 				}
-				// Fecha o menu após o clique
-				scope.launch { drawerState.close() }
-			}
-		},
-		
-		content = {
-		
-			Column(
-				Modifier
-					.background(color = Color(222, 222, 222, 255))
-					.fillMaxSize()
-					.pointerInput(Unit) { // Substitua clickable por pointerInput
-						detectTapGestures(onTap = {
-							KeyboardUtils.FecharTeclado(keyboardController, focusManager)
-						})
-					},
-				verticalArrangement = Arrangement.Center,
-				horizontalAlignment = Alignment.CenterHorizontally
-			) {
+			},
+			
+			content = {
 				
 				Column(
-					verticalArrangement = Arrangement.spacedBy(16.dp),
+					Modifier
+						.background(color = Color(222, 222, 222, 255))
+						.fillMaxSize()
+						.pointerInput(Unit) { // Substitua clickable por pointerInput
+							detectTapGestures(onTap = {
+								KeyboardUtils.FecharTeclado(keyboardController, focusManager)
+							})
+						},
+					verticalArrangement = Arrangement.Center,
 					horizontalAlignment = Alignment.CenterHorizontally
 				) {
-					Text(
-						text = "Álcool ou Gasolina?",
-						style = TextStyle(
-							color = Color.DarkGray,
-							fontSize = 32.sp,
-							fontWeight = FontWeight.Bold
-						)
-					)
 					
-					AnimatedVisibility(visible = mostrarResultado) {
+					Column(
+						verticalArrangement = Arrangement.spacedBy(16.dp),
+						horizontalAlignment = Alignment.CenterHorizontally
+					) {
 						Text(
-							text = construirTextoResultado(ehGasolina), // Chamar a função para construir o texto
+							text = "Álcool ou Gasolina?",
 							style = TextStyle(
-								color = Color.DarkGray, // Cor padrão do texto
-								fontSize = 30.sp,
+								color = Color.DarkGray,
+								fontSize = 32.sp,
 								fontWeight = FontWeight.Bold
 							)
 						)
-					}
-					
-					TextField(
-						value = valorAlcool,
-						onValueChange = { novoValor ->
-							// Permite apagar todos os caracteres
-							if (novoValor.text.isEmpty()) {
-								valorAlcool = TextFieldValue("", TextRange(0))
-							} else {
-								// Formata o valor se não estiver vazio e não for apenas a vírgula
-								val valorFormatado = formatarValor(novoValor.text.filter { it.isDigit() })
-								if (valorFormatado != valorAlcool.text) {
-									valorAlcool =
-										TextFieldValue(valorFormatado, TextRange(valorFormatado.length))
+						
+						AnimatedVisibility(visible = mostrarResultado) {
+							Text(
+								text = construirTextoResultado(ehGasolina), // Chamar a função para construir o texto
+								style = TextStyle(
+									color = Color.DarkGray, // Cor padrão do texto
+									fontSize = 30.sp,
+									fontWeight = FontWeight.Bold
+								)
+							)
+						}
+						
+						TextField(
+							value = valorAlcool,
+							onValueChange = { novoValor ->
+								// Permite apagar todos os caracteres
+								if (novoValor.text.isEmpty()) {
+									valorAlcool = TextFieldValue("", TextRange(0))
 								} else {
-									// Mantém o valor atual se a formatação não mudar
-									valorAlcool = novoValor
+									// Formata o valor se não estiver vazio e não for apenas a vírgula
+									val valorFormatado = formatarValor(novoValor.text.filter { it.isDigit() })
+									if (valorFormatado != valorAlcool.text) {
+										valorAlcool =
+											TextFieldValue(valorFormatado, TextRange(valorFormatado.length))
+									} else {
+										// Mantém o valor atual se a formatação não mudar
+										valorAlcool = novoValor
+									}
+								}
+								mostrarErroAlcool =
+									valorAlcool.text.length < 4 // Exibe erro se menos de 4 caracteres (3 números e a virgula. ex.: 3,79)
+							},
+							label = { Text("Digite o valor do Álcool") },
+							keyboardOptions = KeyboardOptions(
+								keyboardType = KeyboardType.Number,
+								imeAction = ImeAction.Done
+							),
+							keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+							isError = mostrarErroAlcool,
+							supportingText = {
+								if (mostrarErroAlcool) {
+									Text(
+										"Preencha com 3 dígitos para um cálculo mais preciso",
+										color = Color.Red
+									)
+								}
+							},
+							modifier = Modifier.onFocusChanged { focusState ->
+								if (!focusState.isFocused) {
+									keyboardController?.hide()
 								}
 							}
-							mostrarErroAlcool =
-								valorAlcool.text.length < 4 // Exibe erro se menos de 4 caracteres (3 números e a virgula. ex.: 3,79)
-						},
-						label = { Text("Digite o valor do Álcool") },
-						keyboardOptions = KeyboardOptions(
-							keyboardType = KeyboardType.Number,
-							imeAction = ImeAction.Done
-						),
-						keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-						isError = mostrarErroAlcool,
-						supportingText = {
-							if (mostrarErroAlcool) {
-								Text(
-									"Preencha com 3 dígitos para um cálculo mais preciso",
-									color = Color.Red
-								)
-							}
-						},
-						modifier = Modifier.onFocusChanged { focusState ->
-							if (!focusState.isFocused) {
-								keyboardController?.hide()
+						)
+						
+						LaunchedEffect(valorAlcool) {
+							if (valorAlcool.text.isNotEmpty()) {
+								valorAlcool = valorAlcool.copy(selection = TextRange(valorAlcool.text.length))
 							}
 						}
-					)
-					
-					LaunchedEffect(valorAlcool) {
-						if (valorAlcool.text.isNotEmpty()) {
-							valorAlcool = valorAlcool.copy(selection = TextRange(valorAlcool.text.length))
-						}
-					}
-					
-					TextField(
-						value = valorGasolina,
-						onValueChange = { novoValor ->
-							// Permite apagar todos os caracteres
-							if (novoValor.text.isEmpty()) {
-								valorGasolina = TextFieldValue("", TextRange(0))
-							} else {
-								// Formata o valor se não estiver vazio e não for apenas a vírgula
-								val valorFormatado = formatarValor(novoValor.text.filter { it.isDigit() })
-								if (valorFormatado != valorGasolina.text) {
-									valorGasolina =
-										TextFieldValue(valorFormatado, TextRange(valorFormatado.length))
+						
+						TextField(
+							value = valorGasolina,
+							onValueChange = { novoValor ->
+								// Permite apagar todos os caracteres
+								if (novoValor.text.isEmpty()) {
+									valorGasolina = TextFieldValue("", TextRange(0))
 								} else {
-									// Mantém o valor atual se a formatação não mudar
-									valorGasolina = novoValor
+									// Formata o valor se não estiver vazio e não for apenas a vírgula
+									val valorFormatado = formatarValor(novoValor.text.filter { it.isDigit() })
+									if (valorFormatado != valorGasolina.text) {
+										valorGasolina =
+											TextFieldValue(valorFormatado, TextRange(valorFormatado.length))
+									} else {
+										// Mantém o valor atual se a formatação não mudar
+										valorGasolina = novoValor
+									}
+								}
+								mostrarErroGasolina =
+									valorGasolina.text.length < 4 // Exibe erro se menos de 4 caracteres (3 números e a virgula. ex.: 5,69)
+							},
+							label = { Text("Digite o valor da Gasolina") },
+							keyboardOptions = KeyboardOptions(
+								keyboardType = KeyboardType.Number,
+								imeAction = ImeAction.Done
+							),
+							keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+							isError = mostrarErroGasolina,
+							supportingText = {
+								if (mostrarErroGasolina) {
+									Text(
+										"Preencha com 3 dígitos para um cálculo mais preciso",
+										color = Color.Red
+									)
+								}
+							},
+							modifier = Modifier.onFocusChanged { focusState ->
+								if (!focusState.isFocused) {
+									keyboardController?.hide()
 								}
 							}
-							mostrarErroGasolina =
-								valorGasolina.text.length < 4 // Exibe erro se menos de 4 caracteres (3 números e a virgula. ex.: 5,69)
-						},
-						label = { Text("Digite o valor da Gasolina") },
-						keyboardOptions = KeyboardOptions(
-							keyboardType = KeyboardType.Number,
-							imeAction = ImeAction.Done
-						),
-						keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-						isError = mostrarErroGasolina,
-						supportingText = {
-							if (mostrarErroGasolina) {
-								Text(
-									"Preencha com 3 dígitos para um cálculo mais preciso",
-									color = Color.Red
-								)
-							}
-						},
-						modifier = Modifier.onFocusChanged { focusState ->
-							if (!focusState.isFocused) {
-								keyboardController?.hide()
+						)
+						
+						LaunchedEffect(valorGasolina) { // Executa após a atualização do valor
+							if (valorGasolina.text.isNotEmpty()) {
+								valorGasolina =	valorGasolina.copy(selection = TextRange(valorGasolina.text.length))
 							}
 						}
-					)
-					
-					LaunchedEffect(valorGasolina) { // Executa após a atualização do valor
-						if (valorGasolina.text.isNotEmpty()) {
-							valorGasolina =	valorGasolina.copy(selection = TextRange(valorGasolina.text.length))
-						}
-					}
 
 //			Button(onClick = {
 //				try {
@@ -269,77 +276,86 @@ fun App() {
 //			}) {
 //				Text("Testar Erro")
 //			}
-					
-					
-					Button(onClick = {
-						KeyboardUtils.FecharTeclado(keyboardController, focusManager)
-						try {
-							if (valorAlcool.text.isNotBlank() && valorGasolina.text.isNotBlank()) {
-								val valorAlcoolFormatado = valorAlcool.text.replace(",", ".").toDouble()
-								val valorGasolinaFormatado = valorGasolina.text.replace(",", ".").toDouble()
-								ehGasolina = valorAlcoolFormatado / valorGasolinaFormatado > 0.7
-								mostrarResultado = true
-								val porcentagem = (valorAlcoolFormatado / valorGasolinaFormatado * 100)
-								textoResultado = "O valor do Álcool está ${String.format("%.2f", porcentagem)}% do valor da Gasolina" // Formata o valor da val porcentagem para mostrar 2 digitos após a virgula
-							}
-						} catch (e: NumberFormatException) {
-							scope.launch {
-								snackbarHostState.showSnackbar(
-									message = "Erro: Digite valores válidos.",
-									duration = SnackbarDuration.Short
-								)
+						
+						Button(onClick = {
+							KeyboardUtils.FecharTeclado(keyboardController, focusManager)
+							try {
+								if (valorAlcool.text.isNotBlank() && valorGasolina.text.isNotBlank()) {
+									val valorAlcoolFormatado = valorAlcool.text.replace(",", ".").toDouble()
+									val valorGasolinaFormatado = valorGasolina.text.replace(",", ".").toDouble()
+									ehGasolina = valorAlcoolFormatado / valorGasolinaFormatado > 0.7
+									mostrarResultado = true
+									val porcentagem = (valorAlcoolFormatado / valorGasolinaFormatado * 100)
+									textoResultado = "O valor do Álcool está ${String.format("%.2f", porcentagem)}% do valor da Gasolina" // Formata o valor da val porcentagem para mostrar 2 digitos após a virgula
+								}
+							} catch (e: NumberFormatException) {
+								scope.launch {
+									snackbarHostState.showSnackbar(
+										message = "Erro: Digite valores válidos.",
+										duration = SnackbarDuration.Short
+									)
+								}
 							}
 						}
+						
+						) {
+							Text("Calcular")
+						}
+						
+						Button(onClick = {
+							KeyboardUtils.FecharTeclado(keyboardController, focusManager)
+							// Reseta as variáveis de estado
+							valorAlcool = TextFieldValue("", TextRange(1))
+							valorGasolina = TextFieldValue("", TextRange(1))
+							mostrarErroAlcool = false
+							mostrarErroGasolina = false
+							mostrarResultado = false
+							ehGasolina = false
+							textoResultado = ""
+							// Limpa o foco dos campos de texto
+							focusManager.clearFocus()
+						}) {
+							Text("Novo Cálculo")
+						}
+						Text(text = textoResultado) // Exibir o texto do resultado
+						SnackbarHost (hostState = snackbarHostState)
 					}
-					
+				}
+				
+				Box(modifier = Modifier.fillMaxSize()) {
+					Button(
+						onClick = {
+							KeyboardUtils.FecharTeclado(keyboardController, focusManager)
+							scope.launch { drawerState.open() }
+						},
+						modifier = Modifier
+							.wrapContentSize() // Permite que o botão ocupe apenas o espaço necessário
+							.align(Alignment.TopStart) // Alinha o botão no topo à esquerda
+							.padding(20.dp) // Adiciona espaçamento ao redor do botão
+							.background(
+								Color.Blue,
+								shape = CircleShape
+							) // Fundo azul e forma circular
+							.border(
+								1.dp,
+								Color.DarkGray,
+								shape = CircleShape
+							) // Borda branca e forma circular
+							.clip(CircleShape) // Recorta o conteúdo do botão em um círculo
+							.shadow(4.dp, shape = CircleShape) // Adiciona uma sombra circular
 					) {
-						Text("Calcular")
+						Text("Menu")
 					}
-					
-					Button(onClick = {
-						KeyboardUtils.FecharTeclado(keyboardController, focusManager)
-						// Reseta as variáveis de estado
-						valorAlcool = TextFieldValue("", TextRange(1))
-						valorGasolina = TextFieldValue("", TextRange(1))
-						mostrarErroAlcool = false
-						mostrarErroGasolina = false
-						mostrarResultado = false
-						ehGasolina = false
-						textoResultado = ""
-						// Limpa o foco dos campos de texto
-						focusManager.clearFocus()
-					}) {
-						Text("Novo Cálculo")
-					}
-					Text(text = textoResultado) // Exibir o texto do resultado
-					SnackbarHost (hostState = snackbarHostState)
 				}
 			}
-			
-			Box(modifier = Modifier.fillMaxSize()) {
-				Button(
-					onClick = {
-						KeyboardUtils.FecharTeclado(keyboardController, focusManager)
-						scope.launch { drawerState.open() }
-							  },
-					modifier = Modifier
-						.wrapContentSize() // Permite que o botão ocupe apenas o espaço necessário
-						.align(Alignment.TopStart) // Alinha o botão no topo à esquerda
-						.padding(20.dp) // Adiciona espaçamento ao redor do botão
-						.background(Color.Blue, shape = CircleShape) // Fundo azul e forma circular
-						.border(
-							1.dp,
-							Color.DarkGray,
-							shape = CircleShape
-						) // Borda branca e forma circular
-						.clip(CircleShape) // Recorta o conteúdo do botão em um círculo
-						.shadow(4.dp, shape = CircleShape) // Adiciona uma sombra circular
-				) {
-					Text("Menu")
-				}
-			}
-		}
-	)
+		)
+	}
+	
+	NavHost(navController = navController, startDestination = "home") {
+		composable("home") { HomeScreen(navController) } // Tela principal
+		composable("entenda_sobre_o_calculo") { EntendaSobreOCalculoScreen() } // Tela EntendaSobreOCalculoScreen.kt
+		composable("politica_de_privacidade") { PoliticaDePrivacidadeScreen() } // Tela PoliticaDePrivacidadeScreen.kt
+	}
 }
 
 @Preview
@@ -347,5 +363,6 @@ fun App() {
 fun AppPreview() {
 	AlcoolOuGasolinaTheme {
 		App()
+		//MenuLateral {}
 	}
 }
