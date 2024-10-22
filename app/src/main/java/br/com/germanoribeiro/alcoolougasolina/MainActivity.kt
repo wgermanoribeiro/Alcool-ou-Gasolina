@@ -353,8 +353,8 @@ fun App() {
 	
 	NavHost(navController = navController, startDestination = "home") {
 		composable("home") { HomeScreen(navController) } // Tela principal
-		composable("entenda_sobre_o_calculo") { EntendaSobreOCalculoScreen() } // Tela EntendaSobreOCalculoScreen.kt
-		composable("politica_de_privacidade") { PoliticaDePrivacidadeScreen() } // Tela PoliticaDePrivacidadeScreen.kt
+		composable("entenda_sobre_o_calculo") { EntendaSobreOCalculoScreen(navController) } // Tela EntendaSobreOCalculoScreen.kt
+		composable("politica_de_privacidade") { PoliticaDePrivacidadeScreen(navController) } // Tela PoliticaDePrivacidadeScreen.kt
 	}
 }
 
