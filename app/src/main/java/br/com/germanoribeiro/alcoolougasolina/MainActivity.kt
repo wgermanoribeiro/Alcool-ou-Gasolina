@@ -363,6 +363,5 @@ fun App() {
 fun AppPreview() {
 	AlcoolOuGasolinaTheme {
 		App()
-		//MenuLateral {}
 	}
 }

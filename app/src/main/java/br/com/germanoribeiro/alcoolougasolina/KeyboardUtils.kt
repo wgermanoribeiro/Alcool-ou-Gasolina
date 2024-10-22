@@ -9,17 +9,4 @@ object KeyboardUtils {
 		focusManager.clearFocus()
 	}
 	
-	class LocalFocusManager {
-		fun clearFocus() {
-			TODO("Not yet implemented")
-		}
-		
-	}
-	
-	class LocalSoftwareKeyboardController {
-		fun hide() {
-			TODO("Not yet implemented")
-		}
-		
-	}
 }
