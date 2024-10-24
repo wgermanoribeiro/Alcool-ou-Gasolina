@@ -14,9 +14,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -96,6 +98,7 @@ fun App() {
 	val keyboardController = LocalSoftwareKeyboardController.current
 	var textoResultado by remember { mutableStateOf("") } // Variável para o texto do resultado
 	val navController = rememberNavController()
+	val scrollState = rememberScrollState()
 	
 	fun formatarValor(valor: String): String {
 		val numeros = valor.filter { it.isDigit() }.take(3) // Filtra apenas números e limita a 3
@@ -121,8 +124,7 @@ fun App() {
 						"Política de privacidade" -> {navController.navigate("politica_de_privacidade")}
 						"Compartilhe esse aplicativo" -> { /* Ação para a tela*/ }
 					}
-					// Fecha o menu após o clique
-					scope.launch { drawerState.close() }
+					scope.launch { drawerState.close() } // Fecha o menu após o clique
 				}
 			},
 			
@@ -132,6 +134,7 @@ fun App() {
 					Modifier
 						.background(color = Color(222, 222, 222, 255))
 						.fillMaxSize()
+						.verticalScroll(scrollState)
 						.pointerInput(Unit) { // Substitua clickable por pointerInput
 							detectTapGestures(onTap = {
 								KeyboardUtils.FecharTeclado(keyboardController, focusManager)
@@ -303,16 +306,14 @@ fun App() {
 						}
 						
 						Button(onClick = {
-							KeyboardUtils.FecharTeclado(keyboardController, focusManager)
-							// Reseta as variáveis de estado
+							KeyboardUtils.FecharTeclado(keyboardController, focusManager) // Reseta as variáveis de estado
 							valorAlcool = TextFieldValue("", TextRange(1))
 							valorGasolina = TextFieldValue("", TextRange(1))
 							mostrarErroAlcool = false
 							mostrarErroGasolina = false
 							mostrarResultado = false
 							ehGasolina = false
-							textoResultado = ""
-							// Limpa o foco dos campos de texto
+							textoResultado = "" // Limpa o foco dos campos de texto
 							focusManager.clearFocus()
 						}) {
 							Text("Novo Cálculo")
