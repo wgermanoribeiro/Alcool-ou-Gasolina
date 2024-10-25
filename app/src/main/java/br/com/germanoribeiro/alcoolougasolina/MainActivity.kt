@@ -100,6 +100,7 @@ fun App() {
 	var textoResultado by remember { mutableStateOf("") } // Variável para o texto do resultado
 	val navController = rememberNavController()
 	val scrollState = rememberScrollState()
+//	val image = painterResource(id = R.drawable.combustivel2)
 	
 	fun formatarValor(valor: String): String {
 		val numeros = valor.filter { it.isDigit() }.take(3) // Filtra apenas números e limita a 3
@@ -334,6 +335,24 @@ fun App() {
 						Text(text = textoResultado) // Exibir o texto do resultado
 						SnackbarHost(hostState = snackbarHostState)
 					}
+					
+//					Box(
+//						modifier = Modifier
+//							.align(Alignment.End)
+//							.padding(1.dp)
+//					)
+//					{
+//						Image(
+//							painter = image,
+//							contentDescription = "Imagem de fundo",
+//							modifier = Modifier
+//								.padding(1.dp)
+//								.size(width = 100.dp, height = 100.dp)
+//						)
+//					}
+					
+					
+					
 				}
 				
 				Box(modifier = Modifier.fillMaxSize()) {
