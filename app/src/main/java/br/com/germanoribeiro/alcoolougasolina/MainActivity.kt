@@ -136,7 +136,7 @@ fun App() {
 						.background(color = Color(222, 222, 222, 255))
 						.fillMaxSize()
 						.verticalScroll(scrollState)
-						.pointerInput(Unit) { // Substitua clickable por pointerInput
+						.pointerInput(Unit) {
 							detectTapGestures(onTap = {
 								KeyboardUtils.FecharTeclado(keyboardController, focusManager)
 							})

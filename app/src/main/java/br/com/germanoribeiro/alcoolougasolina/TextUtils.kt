@@ -11,11 +11,11 @@ object TextUtils {
 		return buildAnnotatedString {
 			append("Abasteça com ")
 			if (ehGasolina) {
-				withStyle(style = SpanStyle(color = Color.Red)) {
+				withStyle(style = SpanStyle(color = Color(0xFFE14169))) {
 					append("Gasolina")
 				}
 			} else {
-				withStyle(style = SpanStyle(color = Color.Green)) {
+				withStyle(style = SpanStyle(color = Color(0xFF69E141))) {
 					append("Álcool")
 				}
 			}
