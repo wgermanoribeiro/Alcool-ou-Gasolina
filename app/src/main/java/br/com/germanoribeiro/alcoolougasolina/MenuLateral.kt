@@ -83,11 +83,11 @@ fun MenuLateral(
 		) {
 			// Imagem na parte superior
 			Image(
-				painter = painterResource(id = R.drawable.combustivel2), // Substitua pelo ID da sua imagem
+				painter = painterResource(id = R.drawable.combustivel2),
 				contentDescription = "Imagem do menu",
 				modifier = Modifier
 					.fillMaxWidth()
-					.height(100.dp) // Ajuste a altura conforme necessário
+					.height(100.dp)
 			)
 			
 			// Cabeçalho do menu (opcional)

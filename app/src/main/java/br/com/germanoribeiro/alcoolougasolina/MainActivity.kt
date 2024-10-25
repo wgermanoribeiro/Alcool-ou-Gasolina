@@ -20,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -280,46 +281,58 @@ fun App() {
 //				Text("Testar Erro")
 //			}
 						
-						Button(onClick = {
-							KeyboardUtils.FecharTeclado(keyboardController, focusManager)
-							try {
-								if (valorAlcool.text.isNotBlank() && valorGasolina.text.isNotBlank()) {
-									val valorAlcoolFormatado = valorAlcool.text.replace(",", ".").toDouble()
-									val valorGasolinaFormatado = valorGasolina.text.replace(",", ".").toDouble()
-									ehGasolina = valorAlcoolFormatado / valorGasolinaFormatado > 0.7
-									mostrarResultado = true
-									val porcentagem = (valorAlcoolFormatado / valorGasolinaFormatado * 100)
-									textoResultado = "O valor do Álcool está ${String.format("%.2f", porcentagem)}% do valor da Gasolina" // Formata o valor da val porcentagem para mostrar 2 digitos após a virgula
+						Button(
+							onClick = {
+								KeyboardUtils.FecharTeclado(keyboardController, focusManager)
+								try {
+									if (valorAlcool.text.isNotBlank() && valorGasolina.text.isNotBlank()) {
+										val valorAlcoolFormatado =
+											valorAlcool.text.replace(",", ".").toDouble()
+										val valorGasolinaFormatado =
+											valorGasolina.text.replace(",", ".").toDouble()
+										ehGasolina =
+											valorAlcoolFormatado / valorGasolinaFormatado > 0.7
+										mostrarResultado = true
+										val porcentagem =
+											(valorAlcoolFormatado / valorGasolinaFormatado * 100)
+										textoResultado = "O valor do Álcool está ${String.format("%.2f", porcentagem)}% do valor da Gasolina" // Formata o valor da val porcentagem para mostrar 2 digitos após a virgula
+									}
+								} catch (e: NumberFormatException) {
+									scope.launch {
+										snackbarHostState.showSnackbar(
+											message = "Erro: Digite valores válidos.",
+											duration = SnackbarDuration.Short
+										)
+									}
 								}
-							} catch (e: NumberFormatException) {
-								scope.launch {
-									snackbarHostState.showSnackbar(
-										message = "Erro: Digite valores válidos.",
-										duration = SnackbarDuration.Short
-									)
-								}
-							}
-						}
+							},
+							colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4169E1))
 						
 						) {
 							Text("Calcular")
 						}
 						
-						Button(onClick = {
-							KeyboardUtils.FecharTeclado(keyboardController, focusManager) // Reseta as variáveis de estado
-							valorAlcool = TextFieldValue("", TextRange(1))
-							valorGasolina = TextFieldValue("", TextRange(1))
-							mostrarErroAlcool = false
-							mostrarErroGasolina = false
-							mostrarResultado = false
-							ehGasolina = false
-							textoResultado = "" // Limpa o foco dos campos de texto
-							focusManager.clearFocus()
-						}) {
+						Button(
+							onClick = {
+								KeyboardUtils.FecharTeclado(
+									keyboardController,
+									focusManager
+								) // Reseta as variáveis de estado
+								valorAlcool = TextFieldValue("", TextRange(1))
+								valorGasolina = TextFieldValue("", TextRange(1))
+								mostrarErroAlcool = false
+								mostrarErroGasolina = false
+								mostrarResultado = false
+								ehGasolina = false
+								textoResultado = "" // Limpa o foco dos campos de texto
+								focusManager.clearFocus()
+							},
+							colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4169E1))
+						) {
 							Text("Novo Cálculo")
 						}
 						Text(text = textoResultado) // Exibir o texto do resultado
-						SnackbarHost (hostState = snackbarHostState)
+						SnackbarHost(hostState = snackbarHostState)
 					}
 				}
 				
