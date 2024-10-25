@@ -6,22 +6,24 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Button
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.SnackbarDuration
@@ -40,8 +42,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -324,28 +324,25 @@ fun App() {
 				}
 				
 				Box(modifier = Modifier.fillMaxSize()) {
-					Button(
+					IconButton(
 						onClick = {
 							KeyboardUtils.FecharTeclado(keyboardController, focusManager)
 							scope.launch { drawerState.open() }
 						},
 						modifier = Modifier
-							.wrapContentSize() // Permite que o botão ocupe apenas o espaço necessário
-							.align(Alignment.TopStart) // Alinha o botão no topo à esquerda
-							.padding(20.dp) // Adiciona espaçamento ao redor do botão
-							.background(
-								Color.Blue,
-								shape = CircleShape
-							) // Fundo azul e forma circular
-							.border(
-								1.dp,
-								Color.DarkGray,
-								shape = CircleShape
-							) // Borda branca e forma circular
-							.clip(CircleShape) // Recorta o conteúdo do botão em um círculo
-							.shadow(4.dp, shape = CircleShape) // Adiciona uma sombra circular
+							.align(Alignment.TopStart)
+							.padding(25.dp)
+							.size(50.dp)
+//							.border(1.dp,Color.DarkGray,shape = CircleShape)
+//							.background(Color.White,shape = CircleShape)
+							
 					) {
-						Text("Menu")
+						Text("")
+						Icon(
+							imageVector = Icons.Default.Menu,
+							contentDescription = "Menu",
+							tint = Color.DarkGray
+						)
 					}
 				}
 			}
