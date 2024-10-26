@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -27,12 +28,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -170,7 +172,9 @@ fun App() {
 							)
 						}
 						
-						TextField(
+						//OutlinedTextField(value = , onValueChange = )
+						
+						OutlinedTextField(
 							value = valorAlcool,
 							onValueChange = { novoValor ->
 								// Permite apagar todos os caracteres
@@ -205,11 +209,17 @@ fun App() {
 									)
 								}
 							},
-							modifier = Modifier.onFocusChanged { focusState ->
+							modifier = Modifier
+								.onFocusChanged { focusState ->
 								if (!focusState.isFocused) {
 									keyboardController?.hide()
 								}
-							}
+							},
+							shape = RoundedCornerShape(25.dp),
+							colors = TextFieldDefaults.colors(
+								//focusedIndicatorColor = Color.Transparent,
+								//unfocusedIndicatorColor = Color.Transparent,
+							),
 						)
 						
 						LaunchedEffect(valorAlcool) {
@@ -218,7 +228,7 @@ fun App() {
 							}
 						}
 						
-						TextField(
+						OutlinedTextField(
 							value = valorGasolina,
 							onValueChange = { novoValor ->
 								// Permite apagar todos os caracteres
@@ -253,11 +263,18 @@ fun App() {
 									)
 								}
 							},
-							modifier = Modifier.onFocusChanged { focusState ->
+							modifier = Modifier
+								.onFocusChanged { focusState ->
 								if (!focusState.isFocused) {
 									keyboardController?.hide()
 								}
-							}
+							},
+							shape = RoundedCornerShape(25.dp),
+							colors = TextFieldDefaults.colors(
+								//focusedIndicatorColor = Color.Transparent,
+								//unfocusedIndicatorColor = Color.Transparent,
+							),
+							
 						)
 						
 						LaunchedEffect(valorGasolina) { // Executa após a atualização do valor
