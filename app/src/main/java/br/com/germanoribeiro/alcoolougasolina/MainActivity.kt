@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -29,12 +28,12 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -175,6 +174,9 @@ fun App() {
 						//OutlinedTextField(value = , onValueChange = )
 						
 						OutlinedTextField(
+							textStyle = TextStyle(
+								fontSize = 20.sp
+							),
 							value = valorAlcool,
 							onValueChange = { novoValor ->
 								// Permite apagar todos os caracteres
@@ -194,7 +196,16 @@ fun App() {
 								mostrarErroAlcool =
 									valorAlcool.text.length < 4 // Exibe erro se menos de 4 caracteres (3 números e a virgula. ex.: 3,79)
 							},
-							label = { Text("Digite o valor do Álcool") },
+							label = {
+								Text(
+									text = "Digite o valor do Álcool",
+									style = TextStyle(
+										fontWeight = FontWeight.Bold,
+										fontSize = 16.sp
+									)
+								
+								)
+							},
 							keyboardOptions = KeyboardOptions(
 								keyboardType = KeyboardType.Number,
 								imeAction = ImeAction.Done
@@ -204,8 +215,9 @@ fun App() {
 							supportingText = {
 								if (mostrarErroAlcool) {
 									Text(
-										"Preencha com 3 dígitos para um cálculo mais preciso",
-										color = Color.Red
+										text = "Preencha com 3 dígitos para um cálculo mais preciso.",
+										color = Color.Red,
+										fontSize = 14.sp
 									)
 								}
 							},
@@ -215,10 +227,15 @@ fun App() {
 									keyboardController?.hide()
 								}
 							},
-							shape = RoundedCornerShape(25.dp),
-							colors = TextFieldDefaults.colors(
-								//focusedIndicatorColor = Color.Transparent,
-								//unfocusedIndicatorColor = Color.Transparent,
+							//shape = RoundedCornerShape(25.dp),
+							colors = OutlinedTextFieldDefaults.colors(
+								focusedContainerColor = Color.White,
+								unfocusedContainerColor = Color.White,
+								focusedBorderColor = Color.DarkGray,
+								unfocusedBorderColor = Color.DarkGray,
+								errorContainerColor = Color.White,
+								focusedLabelColor = Color.DarkGray,
+								cursorColor = Color.DarkGray
 							),
 						)
 						
@@ -229,6 +246,9 @@ fun App() {
 						}
 						
 						OutlinedTextField(
+							textStyle = TextStyle(
+								fontSize = 20.sp
+							),
 							value = valorGasolina,
 							onValueChange = { novoValor ->
 								// Permite apagar todos os caracteres
@@ -248,7 +268,16 @@ fun App() {
 								mostrarErroGasolina =
 									valorGasolina.text.length < 4 // Exibe erro se menos de 4 caracteres (3 números e a virgula. ex.: 5,69)
 							},
-							label = { Text("Digite o valor da Gasolina") },
+							label = {
+								Text(
+									text = "Digite o valor do Álcool",
+									style = TextStyle(
+										fontWeight = FontWeight.Bold,
+										fontSize = 16.sp
+									)
+								
+								)
+							},
 							keyboardOptions = KeyboardOptions(
 								keyboardType = KeyboardType.Number,
 								imeAction = ImeAction.Done
@@ -269,10 +298,15 @@ fun App() {
 									keyboardController?.hide()
 								}
 							},
-							shape = RoundedCornerShape(25.dp),
-							colors = TextFieldDefaults.colors(
-								//focusedIndicatorColor = Color.Transparent,
-								//unfocusedIndicatorColor = Color.Transparent,
+							//shape = RoundedCornerShape(25.dp),
+							colors = OutlinedTextFieldDefaults.colors(
+								focusedContainerColor = Color.White,
+								unfocusedContainerColor = Color.White,
+								focusedBorderColor = Color.DarkGray,
+								unfocusedBorderColor = Color.DarkGray,
+								errorContainerColor = Color.White,
+								focusedLabelColor = Color.DarkGray,
+								cursorColor = Color.DarkGray
 							),
 							
 						)
