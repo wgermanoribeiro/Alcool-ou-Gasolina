@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -358,10 +359,19 @@ fun App() {
 									}
 								}
 							},
-							colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4169E1))
+							colors = ButtonDefaults.buttonColors(
+								containerColor = Color(0xFF4169E1)
+							),
+							border = BorderStroke(width = 1.dp, color = Color.DarkGray)
 						
 						) {
-							Text("Calcular")
+							Text(
+								text = "Calcular",
+								style = TextStyle(
+									fontWeight = FontWeight.Bold,
+									fontSize = 18.sp
+								)
+							)
 						}
 						
 						Button(
@@ -379,9 +389,16 @@ fun App() {
 								textoResultado = "" // Limpa o foco dos campos de texto
 								focusManager.clearFocus()
 							},
-							colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4169E1))
+							colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4169E1)),
+							border = BorderStroke(width = 1.dp, color = Color.DarkGray)
 						) {
-							Text("Novo Cálculo")
+							Text(
+								text = "Novo Cálculo",
+								style = TextStyle(
+									fontWeight = FontWeight.Bold,
+									fontSize = 18.sp
+								)
+								)
 						}
 						Text(text = textoResultado) // Exibir o texto do resultado
 						SnackbarHost(hostState = snackbarHostState)
