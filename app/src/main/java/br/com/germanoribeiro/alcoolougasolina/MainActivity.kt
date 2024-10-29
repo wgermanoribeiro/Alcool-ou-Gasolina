@@ -156,7 +156,7 @@ fun App() {
 							text = "Álcool ou Gasolina?",
 							style = TextStyle(
 								color = Color.DarkGray,
-								fontSize = 32.sp,
+								fontSize = 36.sp,
 								fontWeight = FontWeight.Bold
 							)
 						)
