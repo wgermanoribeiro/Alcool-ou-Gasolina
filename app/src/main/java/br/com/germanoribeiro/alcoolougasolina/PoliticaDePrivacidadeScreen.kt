@@ -1,5 +1,9 @@
 package br.com.germanoribeiro.alcoolougasolina
 
+import android.content.Intent
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,13 +31,16 @@ import androidx.navigation.NavController
 @Composable
 fun PoliticaDePrivacidadeScreen(navController: NavController) {
 	val scrollState = rememberScrollState()
+	val launcher = rememberLauncherForActivityResult(
+		contract = ActivityResultContracts.StartActivityForResult()
+	){ }
 	
 	Column(
 		Modifier
 			.background(color = Color(222, 222, 222, 255))
 			.fillMaxSize()
 			.verticalScroll(scrollState),
-		//verticalArrangement = Arrangement.Center,
+		verticalArrangement = Arrangement.Center,
 		horizontalAlignment = Alignment.CenterHorizontally
 	){
 		IconButton(
@@ -174,7 +181,9 @@ fun PoliticaDePrivacidadeScreen(navController: NavController) {
 			
 			TextButton(
 				onClick = {
-				
+					val uri = Uri.parse("https://privacypolicyalcoolougasolina.blogspot.com/2024/10/")
+					val intent = Intent(Intent.ACTION_VIEW, uri)
+					launcher.launch(intent)
 				},
 				modifier = Modifier
 					.padding(horizontal = 0.dp, vertical = 50.dp)

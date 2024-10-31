@@ -148,7 +148,7 @@ fun EntendaSobreOCalculoScreen(navController: NavController) {
 				text = annotatedText, // Use o AnnotatedString aqui
 				textAlign = TextAlign.Right,
 				modifier = Modifier
-					.padding(20.dp)
+					.padding(horizontal = 0.dp, vertical = 50.dp)
 					.align(alignment = Alignment.CenterHorizontally)
 					.clickable { uriHandler.openUri("https://meubolsoemdia.com.br/calculadora-alcool-gasolina") }
 			)
