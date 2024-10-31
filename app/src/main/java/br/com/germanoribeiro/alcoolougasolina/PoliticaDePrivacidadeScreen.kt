@@ -1,7 +1,6 @@
 package br.com.germanoribeiro.alcoolougasolina
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,17 +12,14 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -57,7 +53,7 @@ fun PoliticaDePrivacidadeScreen(navController: NavController) {
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
 			Text(
-				text = "Política e Privacidade",
+				text = "Política de Privacidade",
 				style = TextStyle(
 					color = Color.DarkGray,
 					fontSize = 32.sp,
@@ -84,7 +80,6 @@ fun PoliticaDePrivacidadeScreen(navController: NavController) {
 						"\n" +
 						"O Aplicativo coleta informações quando você o baixa e o usa. Essas informações podem incluir informações como\n" +
 						"\n" +
-						"\n" +
 						"O endereço de Protocolo de Internet do seu dispositivo (por exemplo, endereço IP)\n" +
 						"As páginas do Aplicativo que você visita, a hora e a data da sua visita, o tempo gasto nessas páginas\n" +
 						"O tempo gasto no Aplicativo\n" +
@@ -99,31 +94,21 @@ fun PoliticaDePrivacidadeScreen(navController: NavController) {
 						"\n" +
 						"O Provedor de serviços pode usar as informações que você forneceu para contatá-lo de tempos em tempos para fornecer informações importantes, avisos necessários e promoções de marketing.\n" +
 						"\n" +
-						"\n" +
-						"\n" +
 						"Para uma melhor experiência, ao usar o Aplicativo, o Provedor de serviços pode exigir que você nos forneça certas informações de identificação pessoal, incluindo, mas não se limitando a, informações financeiras, informações de ativos. As informações que o Provedor de serviços solicitar serão retidas por eles e usadas conforme descrito nesta política de privacidade.\n" +
-						"\n" +
 						"\n" +
 						"\n" +
 						"Acesso de terceiros\n" +
 						"\n" +
 						"Somente dados agregados e anônimos são transmitidos periodicamente para serviços externos para ajudar o Provedor de serviços a melhorar o Aplicativo e seu serviço. O Provedor de serviços pode compartilhar suas informações com terceiros nas formas descritas nesta declaração de privacidade.\n" +
 						"\n" +
-						"\n" +
-						"\n" +
 						"Observe que o Aplicativo utiliza serviços de terceiros que têm sua própria Política de Privacidade sobre o tratamento de dados. Abaixo estão os links para a Política de Privacidade dos provedores de serviços de terceiros usados \u200B\u200Bpelo Aplicativo:\n" +
-						"\n" +
-						"\n" +
 						"\n" +
 						"Google Play Services\n" +
 						"AdMob\n" +
 						"Google Analytics para Firebase\n" +
 						"Firebase Crashlytics\n" +
 						"\n" +
-						"\n" +
 						"O Provedor de Serviços pode divulgar Informações Fornecidas pelo Usuário e Coletadas Automaticamente:\n" +
-						"\n" +
-						"\n" +
 						"\n" +
 						"conforme exigido por lei, como para cumprir uma intimação ou processo legal semelhante;\n" +
 						"quando eles acreditam de boa fé que a divulgação é necessária para proteger seus direitos, proteger sua segurança ou a segurança de outros, investigar fraudes ou responder a uma solicitação governamental;\n" +
@@ -145,8 +130,6 @@ fun PoliticaDePrivacidadeScreen(navController: NavController) {
 						"Crianças\n" +
 						"\n" +
 						"O Provedor de serviços não usa o aplicativo para solicitar dados ou fazer marketing para crianças menores de 13 anos.\n" +
-						"\n" +
-						"\n" +
 						"\n" +
 						"O aplicativo não se dirige a ninguém menor de 13 anos. O Provedor de serviços não coleta intencionalmente informações de identificação pessoal de crianças menores de 13 anos. No caso de o Provedor de serviços descobrir que uma criança menor de 13 anos forneceu informações pessoais, o Provedor de serviços as excluirá imediatamente de seus servidores. Se você for pai/mãe ou responsável e estiver ciente de que seu filho nos forneceu informações pessoais, entre em contato com o Provedor de serviços (w.germanoribeiro@gmail.com) para que eles possam tomar as medidas necessárias.\n" +
 						"\n" +
@@ -176,7 +159,6 @@ fun PoliticaDePrivacidadeScreen(navController: NavController) {
 						"\n" +
 						"Entre em contato conosco\n" +
 						"\n" +
-						"\n" +
 						"Se você tiver alguma dúvida sobre privacidade ao usar o Aplicativo, ou tiver dúvidas sobre as práticas, entre em contato com o Provedor de Serviços por e-mail em w.germanoribeiro@gmail.com.",
 				style = TextStyle(
 					color = Color.Black,
@@ -189,54 +171,21 @@ fun PoliticaDePrivacidadeScreen(navController: NavController) {
 			
 			)
 			
-			val annotatedText = buildAnnotatedString {
-				withStyle(
-					style = SpanStyle(
-						color = Color.Black,
-						fontSize = 14.sp,
-						fontWeight = FontWeight.Bold
-					)
-				) {
-					append("Clique ")
-				}
-				
-				// Adicione um link clicável à palavra "aqui"
-				pushStringAnnotation(
-					tag = "link",
-					annotation = "https://meubolsoemdia.com.br/calculadora-alcool-gasolina"
-				)
-				withStyle(
-					style = SpanStyle(
-						color = Color.Blue,
-						fontSize = 14.sp,
-						fontWeight = FontWeight.Bold
-					)
-				) {
-					append("aqui")
-				}
-				pop()
-				
-				withStyle(
-					style = SpanStyle(
-						color = Color.Black,
-						fontSize = 14.sp,
-						fontWeight = FontWeight.Bold
-					)
-				) {
-					append(" e saiba mais.")
-				}
-			}
 			
-			val uriHandler = LocalUriHandler.current
-			
-			Text(
-				text = annotatedText, // Use o AnnotatedString aqui
-				textAlign = TextAlign.Right,
+			TextButton(
+				onClick = {
+				
+				},
 				modifier = Modifier
-					.padding(20.dp)
-					.align(alignment = Alignment.CenterHorizontally)
-					.clickable { uriHandler.openUri("https://meubolsoemdia.com.br/calculadora-alcool-gasolina") }
+					.padding(horizontal = 0.dp, vertical = 50.dp)
 			)
+			{
+				Text(
+					text = "Clique aqui para acessar a página da Política de Privacidade",
+					color = Color.Black
+				)
+				
+			}
 			
 		}
 		
