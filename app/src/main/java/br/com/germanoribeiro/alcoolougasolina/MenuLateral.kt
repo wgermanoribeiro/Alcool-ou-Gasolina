@@ -27,8 +27,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 // Dados para os itens do menu
 data class MenuItem(
@@ -56,9 +58,9 @@ fun MenuLateral(
 			onClick = { /* Ação para a tela de configurações */ }
 		),
 		MenuItem(
-			title = "Avalie-nos",
+			title = "Avalie esse app",
 			icon = Icons.Default.Star,
-			contentDescription = "Avalie esse aplicativo na Playstore",
+			contentDescription = "Avalie esse aplicativo na Play Store",
 			onClick = { /* Ação para a tela sobre */ }
 		),
 		MenuItem(
@@ -94,11 +96,12 @@ fun MenuLateral(
 					.height(100.dp)
 			)
 			
-			// Cabeçalho do menu (opcional)
+			// Cabeçalho do menu
 			Text(
 				text = "Álcool ou Gasolina?",
 				style = MaterialTheme.typography.headlineMedium,
-				fontWeight = FontWeight.Bold
+				fontWeight = FontWeight.Bold,
+				color = Color.DarkGray
 			)
 			Spacer(modifier = Modifier.height(16.dp))
 			
@@ -113,10 +116,17 @@ fun MenuLateral(
 				) {
 					Icon(
 						imageVector = item.icon,
-						contentDescription = item.contentDescription
+						contentDescription = item.contentDescription,
+						tint = Color.Black
 					)
 					Spacer(modifier = Modifier.width(16.dp))
-					Text(text = item.title)
+					Text(
+						text = item.title,
+						style = TextStyle(
+							color = Color.DarkGray,
+							fontSize = 18.sp
+						)
+					)
 				}
 			}
 		}
