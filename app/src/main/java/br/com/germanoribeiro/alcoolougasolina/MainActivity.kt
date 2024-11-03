@@ -11,6 +11,7 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -176,7 +177,8 @@ fun App() {
 						
 						OutlinedTextField(
 							textStyle = TextStyle(
-								fontSize = 20.sp
+								fontSize = 20.sp,
+								color = Color.Black
 							),
 							value = valorAlcool,
 							onValueChange = { novoValor ->
@@ -235,8 +237,11 @@ fun App() {
 								focusedBorderColor = Color.DarkGray,
 								unfocusedBorderColor = Color.DarkGray,
 								errorContainerColor = Color.White,
-								focusedLabelColor = Color.DarkGray,
-								cursorColor = Color.DarkGray
+								focusedLabelColor = Color.Blue,
+								unfocusedLabelColor = Color.DarkGray,
+								cursorColor = Color.DarkGray,
+								errorLabelColor= Color.Red,
+								errorBorderColor = Color.Red,
 							),
 						)
 						
@@ -248,7 +253,8 @@ fun App() {
 						
 						OutlinedTextField(
 							textStyle = TextStyle(
-								fontSize = 20.sp
+								fontSize = 20.sp,
+								color = Color.Black
 							),
 							value = valorGasolina,
 							onValueChange = { novoValor ->
@@ -306,8 +312,11 @@ fun App() {
 								focusedBorderColor = Color.DarkGray,
 								unfocusedBorderColor = Color.DarkGray,
 								errorContainerColor = Color.White,
-								focusedLabelColor = Color.DarkGray,
-								cursorColor = Color.DarkGray
+								focusedLabelColor = Color.Blue,
+								unfocusedLabelColor = Color.DarkGray,
+								cursorColor = Color.DarkGray,
+								errorLabelColor= Color.Red,
+								errorBorderColor = Color.Red,
 							),
 							
 						)
@@ -402,6 +411,9 @@ fun App() {
 								)
 								)
 						}
+						
+						Spacer(modifier = Modifier.size(10.dp))
+						
 						Text(
 							text = textoResultado, // Exibir o texto do resultado
 							style = TextStyle(
