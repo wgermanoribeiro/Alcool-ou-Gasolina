@@ -48,7 +48,8 @@ fun EntendaSobreOCalculoScreen(navController: NavController) {
 		) {
 			Icon(
 				imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-				contentDescription = "Voltar"
+				contentDescription = "Voltar",
+				tint = Color.DarkGray
 			)
 		}
 		

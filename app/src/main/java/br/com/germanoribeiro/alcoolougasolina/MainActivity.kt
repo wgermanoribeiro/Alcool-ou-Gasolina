@@ -369,7 +369,8 @@ fun App() {
 								text = "Calcular",
 								style = TextStyle(
 									fontWeight = FontWeight.Bold,
-									fontSize = 18.sp
+									fontSize = 18.sp,
+									color = Color.White
 								)
 							)
 						}
@@ -396,11 +397,17 @@ fun App() {
 								text = "Novo Cálculo",
 								style = TextStyle(
 									fontWeight = FontWeight.Bold,
-									fontSize = 18.sp
+									fontSize = 18.sp,
+									color = Color.White
 								)
 								)
 						}
-						Text(text = textoResultado) // Exibir o texto do resultado
+						Text(
+							text = textoResultado, // Exibir o texto do resultado
+							style = TextStyle(
+								color = Color.Black
+							)
+						)
 						SnackbarHost(hostState = snackbarHostState)
 					}
 					
