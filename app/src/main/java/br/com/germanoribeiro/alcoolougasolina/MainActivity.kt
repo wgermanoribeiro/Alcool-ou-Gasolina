@@ -123,11 +123,22 @@ fun App() {
 				MenuLateral { menuItem ->
 					// Lógica para lidar com o clique no item do menu
 					when (menuItem.title) {
-						"Home" -> { /* Ação para a tela inicial */ }
-						"Entenda sobre o cálculo" -> {navController.navigate("entenda_sobre_o_calculo")}
-						"Avalie-nos" -> { /* Ação para a tela*/ }
-						"Política de privacidade" -> {navController.navigate("politica_de_privacidade")}
-						"Compartilhe esse aplicativo" -> { /* Ação para a tela*/ }
+						"Home" -> { /* Ação para a tela inicial */
+						}
+						
+						"Entenda sobre o cálculo" -> {
+							navController.navigate("entenda_sobre_o_calculo")
+						}
+						
+						"Avalie-nos" -> { /* Ação para a tela*/
+						}
+						
+						"Política de privacidade" -> {
+							navController.navigate("politica_de_privacidade")
+						}
+						
+						"Compartilhe esse aplicativo" -> { /* Ação para a tela*/
+						}
 					}
 					scope.launch { drawerState.close() } // Fecha o menu após o clique
 				}
@@ -187,10 +198,14 @@ fun App() {
 									valorAlcool = TextFieldValue("", TextRange(0))
 								} else {
 									// Formata o valor se não estiver vazio e não for apenas a vírgula
-									val valorFormatado = formatarValor(novoValor.text.filter { it.isDigit() })
+									val valorFormatado =
+										formatarValor(novoValor.text.filter { it.isDigit() })
 									if (valorFormatado != valorAlcool.text) {
 										valorAlcool =
-											TextFieldValue(valorFormatado, TextRange(valorFormatado.length))
+											TextFieldValue(
+												valorFormatado,
+												TextRange(valorFormatado.length)
+											)
 									} else {
 										// Mantém o valor atual se a formatação não mudar
 										valorAlcool = novoValor
@@ -226,10 +241,10 @@ fun App() {
 							},
 							modifier = Modifier
 								.onFocusChanged { focusState ->
-								if (!focusState.isFocused) {
-									keyboardController?.hide()
-								}
-							},
+									if (!focusState.isFocused) {
+										keyboardController?.hide()
+									}
+								},
 							//shape = RoundedCornerShape(25.dp),
 							colors = OutlinedTextFieldDefaults.colors(
 								focusedContainerColor = Color.White,
@@ -240,14 +255,15 @@ fun App() {
 								focusedLabelColor = Color.Blue,
 								unfocusedLabelColor = Color.DarkGray,
 								cursorColor = Color.DarkGray,
-								errorLabelColor= Color.Red,
+								errorLabelColor = Color.Red,
 								errorBorderColor = Color.Red,
 							),
 						)
 						
 						LaunchedEffect(valorAlcool) {
 							if (valorAlcool.text.isNotEmpty()) {
-								valorAlcool = valorAlcool.copy(selection = TextRange(valorAlcool.text.length))
+								valorAlcool =
+									valorAlcool.copy(selection = TextRange(valorAlcool.text.length))
 							}
 						}
 						
@@ -263,10 +279,14 @@ fun App() {
 									valorGasolina = TextFieldValue("", TextRange(0))
 								} else {
 									// Formata o valor se não estiver vazio e não for apenas a vírgula
-									val valorFormatado = formatarValor(novoValor.text.filter { it.isDigit() })
+									val valorFormatado =
+										formatarValor(novoValor.text.filter { it.isDigit() })
 									if (valorFormatado != valorGasolina.text) {
 										valorGasolina =
-											TextFieldValue(valorFormatado, TextRange(valorFormatado.length))
+											TextFieldValue(
+												valorFormatado,
+												TextRange(valorFormatado.length)
+											)
 									} else {
 										// Mantém o valor atual se a formatação não mudar
 										valorGasolina = novoValor
@@ -301,10 +321,10 @@ fun App() {
 							},
 							modifier = Modifier
 								.onFocusChanged { focusState ->
-								if (!focusState.isFocused) {
-									keyboardController?.hide()
-								}
-							},
+									if (!focusState.isFocused) {
+										keyboardController?.hide()
+									}
+								},
 							//shape = RoundedCornerShape(25.dp),
 							colors = OutlinedTextFieldDefaults.colors(
 								focusedContainerColor = Color.White,
@@ -315,15 +335,16 @@ fun App() {
 								focusedLabelColor = Color.Blue,
 								unfocusedLabelColor = Color.DarkGray,
 								cursorColor = Color.DarkGray,
-								errorLabelColor= Color.Red,
+								errorLabelColor = Color.Red,
 								errorBorderColor = Color.Red,
 							),
 							
-						)
+							)
 						
 						LaunchedEffect(valorGasolina) { // Executa após a atualização do valor
 							if (valorGasolina.text.isNotEmpty()) {
-								valorGasolina =	valorGasolina.copy(selection = TextRange(valorGasolina.text.length))
+								valorGasolina =
+									valorGasolina.copy(selection = TextRange(valorGasolina.text.length))
 							}
 						}
 
@@ -357,7 +378,12 @@ fun App() {
 										mostrarResultado = true
 										val porcentagem =
 											(valorAlcoolFormatado / valorGasolinaFormatado * 100)
-										textoResultado = "O valor do Álcool está ${String.format("%.2f", porcentagem)}% do valor da Gasolina" // Formata o valor da val porcentagem para mostrar 2 digitos após a virgula
+										textoResultado = "O valor do Álcool está ${
+											String.format(
+												"%.2f",
+												porcentagem
+											)
+										}% do valor da Gasolina" // Formata o valor da val porcentagem para mostrar 2 digitos após a virgula
 									}
 								} catch (e: NumberFormatException) {
 									scope.launch {
@@ -409,7 +435,7 @@ fun App() {
 									fontSize = 18.sp,
 									color = Color.White
 								)
-								)
+							)
 						}
 						
 						Spacer(modifier = Modifier.size(10.dp))
@@ -422,7 +448,7 @@ fun App() {
 						)
 						SnackbarHost(hostState = snackbarHostState)
 					}
-					
+
 //					Box(
 //						modifier = Modifier
 //							.align(Alignment.End)
@@ -439,7 +465,6 @@ fun App() {
 //					}
 					
 					
-					
 				}
 				
 				Box(modifier = Modifier.fillMaxSize()) {
@@ -454,7 +479,7 @@ fun App() {
 							.size(50.dp)
 //							.border(1.dp,Color.DarkGray,shape = CircleShape)
 //							.background(Color.White,shape = CircleShape)
-							
+					
 					) {
 						Text("")
 						Icon(

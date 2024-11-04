@@ -39,7 +39,7 @@ fun EntendaSobreOCalculoScreen(navController: NavController) {
 			.verticalScroll(scrollState),
 		//verticalArrangement = Arrangement.Center,
 		horizontalAlignment = Alignment.CenterHorizontally
-	){
+	) {
 		IconButton(
 			onClick = { navController.popBackStack() }, // Navega de volta
 			modifier = Modifier
@@ -53,7 +53,7 @@ fun EntendaSobreOCalculoScreen(navController: NavController) {
 			)
 		}
 		
-		Column (
+		Column(
 			verticalArrangement = Arrangement.spacedBy(16.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
@@ -96,13 +96,13 @@ fun EntendaSobreOCalculoScreen(navController: NavController) {
 				
 				style = TextStyle(
 					color = Color.Black,
-					fontSize = 14.sp,
+					fontSize = 18.sp,
 				),
 				textAlign = TextAlign.Justify,
 				modifier = Modifier
 					.padding(25.dp)
 					.align(alignment = Alignment.CenterHorizontally)
-					
+			
 			)
 			
 			val annotatedText = buildAnnotatedString {

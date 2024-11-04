@@ -20,9 +20,9 @@ object TextUtils {
 						fontWeight = FontWeight.Bold,
 						shadow = Shadow(
 							color = Color.DarkGray,
-							offset = Offset(3f,3f),
+							offset = Offset(3f, 3f),
 							blurRadius = 3f
-							)
+						)
 					)
 				) {
 					append("Gasolina")

@@ -33,7 +33,7 @@ fun PoliticaDePrivacidadeScreen(navController: NavController) {
 	val scrollState = rememberScrollState()
 	val launcher = rememberLauncherForActivityResult(
 		contract = ActivityResultContracts.StartActivityForResult()
-	){ }
+	) { }
 	
 	Column(
 		Modifier
@@ -42,7 +42,7 @@ fun PoliticaDePrivacidadeScreen(navController: NavController) {
 			.verticalScroll(scrollState),
 		verticalArrangement = Arrangement.Center,
 		horizontalAlignment = Alignment.CenterHorizontally
-	){
+	) {
 		IconButton(
 			onClick = { navController.popBackStack() }, // Navega de volta
 			modifier = Modifier
@@ -56,7 +56,7 @@ fun PoliticaDePrivacidadeScreen(navController: NavController) {
 			)
 		}
 		
-		Column (
+		Column(
 			verticalArrangement = Arrangement.spacedBy(16.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
@@ -69,17 +69,6 @@ fun PoliticaDePrivacidadeScreen(navController: NavController) {
 				)
 			)
 			
-//			Text(
-//				text = "Quando vale a pena usar um combustível ou outro?",
-//				style = TextStyle(
-//					color = Color.DarkGray,
-//					fontSize = 22.sp,
-//					fontWeight = FontWeight.Bold,
-//				),
-//				modifier = Modifier
-//					.padding(10.dp),
-//				textAlign = TextAlign.Center
-//			)
 			
 			Text(
 				text = "Esta política de privacidade se aplica ao aplicativo Álcool ou Gasolina (doravante denominado \"Aplicativo\") para dispositivos móveis que foi criado por Germano Ribeiro (doravante denominado \"Provedor de Serviços\") como um serviço Suportado por Anúncios. Este serviço é destinado ao uso \"NO ESTADO EM QUE SE ENCONTRA\".\n" +
@@ -168,9 +157,10 @@ fun PoliticaDePrivacidadeScreen(navController: NavController) {
 						"Entre em contato conosco\n" +
 						"\n" +
 						"Se você tiver alguma dúvida sobre privacidade ao usar o Aplicativo, ou tiver dúvidas sobre as práticas, entre em contato com o Provedor de Serviços por e-mail em w.germanoribeiro@gmail.com.",
+				
 				style = TextStyle(
 					color = Color.Black,
-					fontSize = 14.sp,
+					fontSize = 18.sp,
 				),
 				textAlign = TextAlign.Justify,
 				modifier = Modifier
@@ -182,7 +172,8 @@ fun PoliticaDePrivacidadeScreen(navController: NavController) {
 			
 			TextButton(
 				onClick = {
-					val uri = Uri.parse("https://privacypolicyalcoolougasolina.blogspot.com/2024/10/")
+					val uri =
+						Uri.parse("https://privacypolicyalcoolougasolina.blogspot.com/2024/10/privacy-policy-politica-de-provacidade.html")
 					val intent = Intent(Intent.ACTION_VIEW, uri)
 					launcher.launch(intent)
 				},
@@ -191,7 +182,7 @@ fun PoliticaDePrivacidadeScreen(navController: NavController) {
 			)
 			{
 				Text(
-					text = "Clique aqui para acessar a página da Política de Privacidade",
+					text = "Clique aqui para acessar a Política de Privacidade",
 					color = Color.Black
 				)
 				
