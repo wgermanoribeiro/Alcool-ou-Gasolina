@@ -297,7 +297,7 @@ fun App() {
 							},
 							label = {
 								Text(
-									text = "Digite o valor do Álcool",
+									text = "Digite o valor da Gasolina",
 									style = TextStyle(
 										fontWeight = FontWeight.Bold,
 										fontSize = 16.sp
@@ -443,7 +443,8 @@ fun App() {
 						Text(
 							text = textoResultado, // Exibir o texto do resultado
 							style = TextStyle(
-								color = Color.Black
+								color = Color.Black,
+								fontSize = 15.sp
 							)
 						)
 						SnackbarHost(hostState = snackbarHostState)
